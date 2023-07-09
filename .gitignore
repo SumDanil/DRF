@@ -1,4 +1,6 @@
 venv
 .idea/
-__pycash__
-women/__pycache__
+/__pycache__/
+/women/__pycache__/
+**/__pycache__/
+**/__pycache__
