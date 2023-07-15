@@ -8,23 +8,32 @@ from .models import Women
 from .serializers import WomenSerializer
 
 
+class WomenAPIList(generics.ListCreateAPIView):
+    # this wiev work with GET and POST
+    # queryset - це список записів котрі будуть вертаться клієнту
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
+    # serializer_class - цей клас буде оброблять queryset
+
+
 class WomenAPIView(APIView):
     def get(self, request):
         w = Women.objects.all()
         return Response({'posts': WomenSerializer(w, many=True).data})
 
     def post(self, request):
+        print(f'{request.data=}')
         serializer = WomenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
         return Response({'post': serializer.data})
 
-
-    # for update row in bd
     def put(self, request, *args, **kwargs):
         pk = kwargs.get("pk", None)
         if not pk:
             return Response({"error": "Method PUT not allowed"})
+
         try:
             instance = Women.objects.get(pk=pk)
         except:
@@ -39,12 +48,8 @@ class WomenAPIView(APIView):
         pk = kwargs.get("pk", None)
         if not pk:
             return Response({"error": "Method DELETE not allowed"})
-        try:
-            instance = Women.objects.get(pk=pk)
-            instance.delete()
-            print(f"{instance=}")
-        except:
-            return Response({"error": "Object does not exists"})
+
+        # здесь код для удаления записи с переданным pk
 
         return Response({"post": "delete post " + str(pk)})
 
