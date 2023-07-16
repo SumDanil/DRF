@@ -5,3 +5,7 @@ venv
 **/__pycache__/
 **/__pycache__
 
+women/__pycache__/*
+women/__pycache__/**
+drfsite/__pycache__/*
+drfsite/__pycache__/**
