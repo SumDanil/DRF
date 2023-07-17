@@ -21,7 +21,8 @@ from rest_framework import routers
 
 
 router = routers.SimpleRouter()
-router.register(r'women', WomenViewSet)
+router.register(r'women', WomenViewSet, basename='women')
+# basename use when you change queryset on custom (get_queryset)
 
 
 urlpatterns = [
