@@ -20,14 +20,10 @@ from women.views import *
 from rest_framework import routers
 
 
-router = routers.SimpleRouter()
-router.register(r'women', WomenViewSet, basename='women')
-# basename use when you change queryset on custom (get_queryset)
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/women/ this one row replaces row bellow
-    # path('api/v1/womenlist/', WomenViewSet.as_view({'get': 'list', 'post': 'create'})),
-    # path('api/v1/womenlist/<int:pk>/', WomenViewSet.as_view({'put': 'update', 'delete': 'destroy'})),
+    path('api/v1/women/', WomenApiList.as_view()),
+    path('api/v1/women/<int:pk>/', WomenApiUpdate.as_view()),
+    path('api/v1/womendelete/<int:pk>/', WomenApiDestroy.as_view()),
 ]
